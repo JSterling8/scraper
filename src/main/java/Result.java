@@ -10,7 +10,9 @@ public class Result {
 
     public Result(String nameTeamOne, String nameTeamTwo, int scoreTeamOne, int scoreTeamTwo, boolean oneMatch) {
         this.nameTeamOne = nameTeamOne;
+        nameTeamOne.replace("'", "\\'");
         this.nameTeamTwo = nameTeamTwo;
+        nameTeamTwo.replace("'", "\\'");
         this.scoreTeamOne = scoreTeamOne;
         this.scoreTeamTwo = scoreTeamTwo;
         this.oneMatch = oneMatch;

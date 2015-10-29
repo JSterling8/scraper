@@ -3,6 +3,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +22,12 @@ public class Scraper {
                 Document document;
                 if(i == 0) {
                      document = Jsoup.connect("http://www.hltv.org/results/")
+                             .timeout(7000)
                             .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
                             .get();
                 } else {
                     document = Jsoup.connect("http://www.hltv.org/results/" + i + "/")
+                            .timeout(7000)
                             .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
                             .get();
                 }
@@ -55,14 +60,40 @@ public class Scraper {
         return results;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Scraper scraper = new Scraper();
+        java.sql.Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/csgo-scores", "postgres", "postgres");
+
         for(Result result : scraper.getResults()){
             System.out.println("Team One Name: " + result.getNameTeamOne() + "\n" +
                     "Team One Score: " + result.getScoreTeamOne() + "\n" +
                     "Team Two Name: " + result.getNameTeamTwo() + "\n" +
                     "Team Two Score: " + result.getScoreTeamTwo() + "\n" +
                     "One Match?: " + result.isOneMatch() + "\n" + "\n");
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO result (" +
+                            "team_one, " +
+                            "team_two, " +
+                            "score_team_one, " +
+                            "score_team_two, " +
+                            "one_match" +
+                            ") " +
+
+                            " values (" +
+                            "?, " +
+                            "?, " +
+                            "?, " +
+                            "?, " +
+                            "?" +
+                            ");");
+            statement.setString(1, result.getNameTeamOne());
+            statement.setString(2, result.getNameTeamTwo());
+            statement.setInt(3, result.getScoreTeamOne());
+            statement.setInt(4, result.getScoreTeamTwo());
+            statement.setBoolean(5, result.isOneMatch());
+
+            statement.execute();
         }
     }
 }
