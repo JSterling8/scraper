@@ -32,23 +32,23 @@ public class Scraper {
                             .get();
                 }
                 Elements matchType = document.select("div.matchTimeCell");
-                Elements teamNamesOne = document.select(".matchTeam1Cell a");
-                Elements teamNamesTwo = document.select(".matchTeam2Cell a");
-                Elements teamScoresOne = document.select(".matchScoreCell span:nth-of-type(1)");
-                Elements teamScoresTwo = document.select(".matchScoreCell span:nth-of-type(2)");
+                Elements teamOneNames = document.select(".matchTeam1Cell a");
+                Elements teamTwoNames = document.select(".matchTeam2Cell a");
+                Elements teamOneScores = document.select(".matchScoreCell span:nth-of-type(1)");
+                Elements teamTwoScores = document.select(".matchScoreCell span:nth-of-type(2)");
 
-                if(teamNamesOne.size() != teamNamesTwo.size()
-                        || teamNamesTwo.size() != teamScoresOne.size()
-                        || teamScoresOne.size() != teamScoresTwo.size()){
+                if(teamOneNames.size() != teamTwoNames.size()
+                        || teamTwoNames.size() != teamOneScores.size()
+                        || teamOneScores.size() != teamTwoScores.size()){
                     System.out.println("Elements size mismatch...");
                 }
 
-                for(int j = 0; j < teamNamesOne.size(); j++){
+                for(int j = 0; j < teamOneNames.size(); j++){
                     boolean oneMatch = !matchType.get(j).text().startsWith("Best of");
-                    results.add(new Result(teamNamesOne.get(j).text(),
-                                                teamNamesTwo.get(j).text(),
-                                                Integer.parseInt(teamScoresOne.get(j).text()),
-                                                Integer.parseInt(teamScoresTwo.get(j).text()),
+                    results.add(new Result(teamOneNames.get(j).text(),
+                                                teamTwoNames.get(j).text(),
+                                                Integer.parseInt(teamOneScores.get(j).text()),
+                                                Integer.parseInt(teamTwoScores.get(j).text()),
                                                 oneMatch)
                                 );
                 }
