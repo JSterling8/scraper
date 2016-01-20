@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01b2bed9-092c-4d45-b8d1-6e3f36d44e3d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Result.java" afterPath="$PROJECT_DIR$/src/main/java/Result.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Scraper.java" afterPath="$PROJECT_DIR$/src/main/java/Scraper.java" />
     </list>
     <ignored path="scraper.iws" />
@@ -33,14 +32,14 @@
       <file leaf-file-name="Scraper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Scraper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27966103">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5677966">
+              <caret line="80" column="74" selection-start-line="80" selection-start-column="74" selection-end-line="80" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#645#653#0" expanded="true" />
-                <element signature="e#4208#4214#0" expanded="true" />
-                <element signature="e#4660#4669#0" expanded="true" />
-                <marker date="1453299603468" expanded="true" signature="6907:7585" placeholder="INSERT INTO ..." />
+                <element signature="e#4177#4183#0" expanded="true" />
+                <element signature="e#4629#4638#0" expanded="true" />
+                <marker date="1453299654032" expanded="true" signature="6876:7554" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -484,12 +483,12 @@
       <workItem from="1446153024279" duration="4018000" />
       <workItem from="1446583048220" duration="1757000" />
       <workItem from="1448377243962" duration="197000" />
-      <workItem from="1453293513061" duration="6092000" />
+      <workItem from="1453293513061" duration="6137000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12064000" />
+    <option name="totallyTimeSpent" value="12109000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="2418" height="1308" extended-state="6" />
@@ -551,9 +550,9 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4208#4214#0" expanded="true" />
-            <element signature="e#4660#4669#0" expanded="true" />
-            <marker date="1453299603468" expanded="true" signature="6907:7585" placeholder="INSERT INTO ..." />
+            <element signature="e#4177#4183#0" expanded="true" />
+            <element signature="e#4629#4638#0" expanded="true" />
+            <marker date="1453299654032" expanded="true" signature="6876:7554" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -573,9 +572,9 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4208#4214#0" expanded="true" />
-            <element signature="e#4660#4669#0" expanded="true" />
-            <marker date="1453299603468" expanded="true" signature="6907:7585" placeholder="INSERT INTO ..." />
+            <element signature="e#4177#4183#0" expanded="true" />
+            <element signature="e#4629#4638#0" expanded="true" />
+            <marker date="1453299654032" expanded="true" signature="6876:7554" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -595,9 +594,9 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4208#4214#0" expanded="true" />
-            <element signature="e#4660#4669#0" expanded="true" />
-            <marker date="1453299603468" expanded="true" signature="6907:7585" placeholder="INSERT INTO ..." />
+            <element signature="e#4177#4183#0" expanded="true" />
+            <element signature="e#4629#4638#0" expanded="true" />
+            <marker date="1453299654032" expanded="true" signature="6876:7554" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -694,14 +693,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Scraper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27966103">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5677966">
+          <caret line="80" column="74" selection-start-line="80" selection-start-column="74" selection-end-line="80" selection-end-column="74" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4208#4214#0" expanded="true" />
-            <element signature="e#4660#4669#0" expanded="true" />
-            <marker date="1453299603468" expanded="true" signature="6907:7585" placeholder="INSERT INTO ..." />
+            <element signature="e#4177#4183#0" expanded="true" />
+            <element signature="e#4629#4638#0" expanded="true" />
+            <marker date="1453299654032" expanded="true" signature="6876:7554" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
