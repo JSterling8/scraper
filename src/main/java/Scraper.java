@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,13 +33,16 @@ public class Scraper {
                 Elements teamTwoScores = document.select(".matchScoreCell span:nth-of-type(2)");
 
                 String entireResultsBox = document.select("div.centerFade").get(0).outerHtml();
-                HashMap<String, Integer> dateAndNumOfEntries = getNumOfResultsPerDateIndex(entireResultsBox, dateHeadings);
+                List<Integer> dateAndNumOfEntries = getNumOfResultsPerDateHeading(entireResultsBox, dateHeadings);
 
                 if(teamOneNames.size() != teamTwoNames.size()
                         || teamTwoNames.size() != teamOneScores.size()
                         || teamOneScores.size() != teamTwoScores.size()){
                     System.out.println("Elements size mismatch...");
+
+                    return null; //TODO Throw exception
                 }
+
 
                 for(int j = 0; j < teamOneNames.size(); j++){
                     MatchType matchType = MatchType.UNDEFINED;
@@ -69,8 +71,8 @@ public class Scraper {
         return results;
     }
 
-    private HashMap<String, Integer> getNumOfResultsPerDateIndex(String entireResultsBox, Elements dateHeadings) {
-        HashMap<String, Integer> resultsPerDate = new HashMap<String, Integer>(dateHeadings.size());
+    private List<Integer> getNumOfResultsPerDateHeading(String entireResultsBox, Elements dateHeadings) {
+        List<Integer> resultsPerDate = new ArrayList<Integer>(dateHeadings.size());
 
         int indexOfDateBoxCurrentlyOn = 0;
         // Loop through every character.
@@ -89,7 +91,7 @@ public class Scraper {
                     i++;
                 }
 
-                resultsPerDate.put(dateHeadings.get(indexOfDateBoxCurrentlyOn).text(), numOfResultsForThisDate);
+                resultsPerDate.add(numOfResultsForThisDate);
                 indexOfDateBoxCurrentlyOn++;
                 i--;
             }
