@@ -51,15 +51,14 @@ public class Scraper {
 
                 List<Date> matchDates = getDateFromHeadings(dateHeadings);
 
-                int limit = numOfResultsPerDateIndex.get(0);
-                int offset = 0;
+                int resultsLimitForDate = numOfResultsPerDateIndex.get(0);
                 int dateIndex = 0;
 
                 for(int j = 0; j < teamOneNames.size(); j++){
-                    if(j == limit) {
+                    if(j == resultsLimitForDate) {
                         dateIndex++;
 
-                        limit = limit + numOfResultsPerDateIndex.get(dateIndex);
+                        resultsLimitForDate = resultsLimitForDate + numOfResultsPerDateIndex.get(dateIndex);
                     }
 
                     MatchType matchType = MatchType.BEST_OF_ONE;
@@ -78,7 +77,7 @@ public class Scraper {
                                                 Integer.parseInt(teamOneScores.get(j).text()),
                                                 Integer.parseInt(teamTwoScores.get(j).text()),
                                                 matchType,
-                                                matchDates.get(dateIndex)) 
+                                                matchDates.get(dateIndex))
                                 );
                 }
             } catch (IOException e) {
