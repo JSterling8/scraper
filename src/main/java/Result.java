@@ -1,7 +1,7 @@
 import java.sql.Date;
 
 /**
- * Created by anon on 29/10/2015.
+ * @author Jonathan Sterling
  */
 public class Result {
     private String nameTeamOne;

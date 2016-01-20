@@ -1,5 +1,5 @@
 /**
- * Created by anon on 20/01/2016.
+ * @author Jonathan Sterling
  */
 public enum MatchType {
     UNDEFINED,
