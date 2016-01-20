@@ -93,6 +93,10 @@ public class Scraper {
                 indexOfDateBoxCurrentlyOn++;
                 i--;
             }
+
+            if(indexOfDateBoxCurrentlyOn > dateHeadings.size()) {
+                break;
+            }
         }
 
         return resultsPerDate;
