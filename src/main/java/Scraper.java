@@ -91,6 +91,7 @@ public class Scraper {
 
                 resultsPerDate.put(dateHeadings.get(indexOfDateBoxCurrentlyOn).text(), numOfResultsForThisDate);
                 indexOfDateBoxCurrentlyOn++;
+                i--;
             }
         }
 
