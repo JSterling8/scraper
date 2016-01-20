@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01b2bed9-092c-4d45-b8d1-6e3f36d44e3d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Scraper.class" afterPath="$PROJECT_DIR$/target/classes/Scraper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Scraper.java" afterPath="$PROJECT_DIR$/src/main/java/Scraper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scraper.iml" afterPath="$PROJECT_DIR$/scraper.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="scraper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,14 +32,14 @@
       <file leaf-file-name="Scraper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Scraper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29689807">
-              <caret line="165" column="71" selection-start-line="165" selection-start-column="71" selection-end-line="165" selection-end-column="71" />
+            <state vertical-scroll-proportion="0.82422453">
+              <caret line="199" column="124" selection-start-line="199" selection-start-column="124" selection-end-line="199" selection-end-column="124" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#686#694#0" expanded="true" />
-                <element signature="e#4243#4249#0" expanded="true" />
-                <element signature="e#5335#5344#0" expanded="true" />
-                <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
+                <element signature="e#724#732#0" expanded="true" />
+                <element signature="e#4281#4287#0" expanded="true" />
+                <element signature="e#5373#5382#0" expanded="true" />
+                <marker date="1453301452456" expanded="true" signature="7342:8020" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -487,12 +483,12 @@
       <workItem from="1446153024279" duration="4018000" />
       <workItem from="1446583048220" duration="1757000" />
       <workItem from="1448377243962" duration="197000" />
-      <workItem from="1453293513061" duration="7873000" />
+      <workItem from="1453293513061" duration="7936000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13845000" />
+    <option name="totallyTimeSpent" value="13908000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="2418" height="1308" extended-state="6" />
@@ -553,10 +549,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#686#694#0" expanded="true" />
-            <element signature="e#4243#4249#0" expanded="true" />
-            <element signature="e#5335#5344#0" expanded="true" />
-            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
+            <element signature="e#724#732#0" expanded="true" />
+            <element signature="e#4281#4287#0" expanded="true" />
+            <element signature="e#5373#5382#0" expanded="true" />
+            <marker date="1453301452456" expanded="true" signature="7342:8020" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -575,10 +571,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#686#694#0" expanded="true" />
-            <element signature="e#4243#4249#0" expanded="true" />
-            <element signature="e#5335#5344#0" expanded="true" />
-            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
+            <element signature="e#724#732#0" expanded="true" />
+            <element signature="e#4281#4287#0" expanded="true" />
+            <element signature="e#5373#5382#0" expanded="true" />
+            <marker date="1453301452456" expanded="true" signature="7342:8020" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -597,10 +593,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#686#694#0" expanded="true" />
-            <element signature="e#4243#4249#0" expanded="true" />
-            <element signature="e#5335#5344#0" expanded="true" />
-            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
+            <element signature="e#724#732#0" expanded="true" />
+            <element signature="e#4281#4287#0" expanded="true" />
+            <element signature="e#5373#5382#0" expanded="true" />
+            <marker date="1453301452456" expanded="true" signature="7342:8020" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -697,14 +693,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Scraper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29689807">
-          <caret line="165" column="71" selection-start-line="165" selection-start-column="71" selection-end-line="165" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.82422453">
+          <caret line="199" column="124" selection-start-line="199" selection-start-column="124" selection-end-line="199" selection-end-column="124" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#686#694#0" expanded="true" />
-            <element signature="e#4243#4249#0" expanded="true" />
-            <element signature="e#5335#5344#0" expanded="true" />
-            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
+            <element signature="e#724#732#0" expanded="true" />
+            <element signature="e#4281#4287#0" expanded="true" />
+            <element signature="e#5373#5382#0" expanded="true" />
+            <marker date="1453301452456" expanded="true" signature="7342:8020" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>

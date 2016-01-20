@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by anon on 29/10/2015.
@@ -195,5 +196,7 @@ public class Scraper {
                 statement.execute();
             }
         }
+
+        System.out.println("All matches scraped and saved to DB in " + stopwatch.elapsedTime(TimeUnit.SECONDS) + " seconds.");
     }
 }
