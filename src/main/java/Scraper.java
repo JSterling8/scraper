@@ -1,3 +1,4 @@
+import com.google.common.base.Stopwatch;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,7 +24,7 @@ public class Scraper {
     public List<Result> getResultsInRange(int min, int max) throws ParseException {
         List<Result> results = new ArrayList<Result>();
 
-        // 14,000 is max as of 20/1/16 (hltv.org/results/14000
+        // 13,950 is max as of 20/1/16 (hltv.org/results/13950/
         for(int i = min; i < max; i += 50){
             try {
                 Document document = Jsoup.connect("http://www.hltv.org/results/" + i + "/")
@@ -93,13 +94,31 @@ public class Scraper {
 
         List<Date> dates = new ArrayList<Date>(dateHeadings.size());
         for(Element element : dateHeadings) {
-            String dateText = element.text().replaceAll("st |nd |rd |th ", " ");
+            String dateText = stripDateOrdinal(element.text());
             Long dateTime = format.parse(dateText).getTime();
 
             dates.add(new Date(dateTime));
         }
 
         return  dates;
+    }
+
+    private String stripDateOrdinal(String text) {
+        text = text.replace("0th", "0"); // 10th, 20th, 30th
+        text = text.replace("1st", "1");
+        text = text.replace("1th", "1"); // 11th
+        text = text.replace("2nd", "2");
+        text = text.replace("2th", "2"); // 12th
+        text = text.replace("3rd", "3");
+        text = text.replace("3th", "3"); // 13th
+        text = text.replace("4th", "4");
+        text = text.replace("5th", "5");
+        text = text.replace("6th", "6");
+        text = text.replace("7th", "7");
+        text = text.replace("8th", "8");
+        text = text.replace("9th", "9");
+
+        return text;
     }
 
     private List<Integer> getNumOfResultsPerDateHeading(String entireResultsBox, int numDates) {
@@ -113,8 +132,9 @@ public class Scraper {
                 int numOfResultsForThisDate = 0;
 
                 i++;
-                // Count every instance of matchBox from here on out, until the next <matchListDateBox>
-                while( i < entireResultsBox.length() - 16 && !entireResultsBox.substring(i, i + 16).equals("matchListDateBox")) {
+                // Count every instance of matchBox from here until the next <matchListDateBox>
+                while( i < entireResultsBox.length() - 16 &&
+                        !entireResultsBox.substring(i, i + 16).equals("matchListDateBox")) {
                     if(entireResultsBox.substring(i, i + 12).equals("matchListBox")){
                         numOfResultsForThisDate++;
                     }
@@ -136,21 +156,16 @@ public class Scraper {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.start();
         Scraper scraper = new Scraper();
         java.sql.Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/csgo-scores", "postgres", "postgres");
 
-        //TODO Get match date! Important!
-
-        for(int i = 0; i <= 100; i += 100) {
-            List<Result> results = scraper.getResultsInRange(i, i + 50);
+        for(int i = 0; i <= 13950; i += 1050) {
+            System.out.println("Getting games " + i + " - " + i + 1000);
+            List<Result> results = scraper.getResultsInRange(i, i + 1000);
 
             for(Result result : results) {
-                System.out.println("Team One Name: " + result.getNameTeamOne() + "\n" +
-                        "Team One Score: " + result.getScoreTeamOne() + "\n" +
-                        "Team Two Name: " + result.getNameTeamTwo() + "\n" +
-                        "Team Two Score: " + result.getScoreTeamTwo() + "\n" +
-                        "One Match?: " + result.getMatchType() + "\n" + "\n");
-
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO result (" +
                                 "team_one, " +

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01b2bed9-092c-4d45-b8d1-6e3f36d44e3d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Scraper.class" afterPath="$PROJECT_DIR$/target/classes/Scraper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Scraper.java" afterPath="$PROJECT_DIR$/src/main/java/Scraper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scraper.iml" afterPath="$PROJECT_DIR$/scraper.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="scraper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,14 +36,14 @@
       <file leaf-file-name="Scraper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Scraper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6501211">
-              <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.29689807">
+              <caret line="165" column="71" selection-start-line="165" selection-start-column="71" selection-end-line="165" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#645#653#0" expanded="true" />
-                <element signature="e#4201#4207#0" expanded="true" />
-                <element signature="e#4653#4662#0" expanded="true" />
-                <marker date="1453299921610" expanded="true" signature="6900:7578" placeholder="INSERT INTO ..." />
+                <element signature="e#686#694#0" expanded="true" />
+                <element signature="e#4243#4249#0" expanded="true" />
+                <element signature="e#5335#5344#0" expanded="true" />
+                <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -75,9 +79,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Scaper.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/Test.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/MatchType.java" />
         <option value="$PROJECT_DIR$/src/main/java/Result.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Scraper.java" />
       </list>
     </option>
@@ -483,12 +487,12 @@
       <workItem from="1446153024279" duration="4018000" />
       <workItem from="1446583048220" duration="1757000" />
       <workItem from="1448377243962" duration="197000" />
-      <workItem from="1453293513061" duration="6404000" />
+      <workItem from="1453293513061" duration="7873000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12376000" />
+    <option name="totallyTimeSpent" value="13845000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="2418" height="1308" extended-state="6" />
@@ -502,7 +506,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27387998" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27387998" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -512,7 +516,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39983094" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39983094" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -549,10 +553,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4201#4207#0" expanded="true" />
-            <element signature="e#4653#4662#0" expanded="true" />
-            <marker date="1453299921610" expanded="true" signature="6900:7578" placeholder="INSERT INTO ..." />
+            <element signature="e#686#694#0" expanded="true" />
+            <element signature="e#4243#4249#0" expanded="true" />
+            <element signature="e#5335#5344#0" expanded="true" />
+            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -571,10 +575,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4201#4207#0" expanded="true" />
-            <element signature="e#4653#4662#0" expanded="true" />
-            <marker date="1453299921610" expanded="true" signature="6900:7578" placeholder="INSERT INTO ..." />
+            <element signature="e#686#694#0" expanded="true" />
+            <element signature="e#4243#4249#0" expanded="true" />
+            <element signature="e#5335#5344#0" expanded="true" />
+            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -593,10 +597,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4201#4207#0" expanded="true" />
-            <element signature="e#4653#4662#0" expanded="true" />
-            <marker date="1453299921610" expanded="true" signature="6900:7578" placeholder="INSERT INTO ..." />
+            <element signature="e#686#694#0" expanded="true" />
+            <element signature="e#4243#4249#0" expanded="true" />
+            <element signature="e#5335#5344#0" expanded="true" />
+            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -621,14 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.114349775">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36996734">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -691,16 +687,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6277696">
+          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Scraper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6501211">
-          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.29689807">
+          <caret line="165" column="71" selection-start-line="165" selection-start-column="71" selection-end-line="165" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#645#653#0" expanded="true" />
-            <element signature="e#4201#4207#0" expanded="true" />
-            <element signature="e#4653#4662#0" expanded="true" />
-            <marker date="1453299921610" expanded="true" signature="6900:7578" placeholder="INSERT INTO ..." />
+            <element signature="e#686#694#0" expanded="true" />
+            <element signature="e#4243#4249#0" expanded="true" />
+            <element signature="e#5335#5344#0" expanded="true" />
+            <marker date="1453301389962" expanded="true" signature="7304:7982" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
