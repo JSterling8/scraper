@@ -1,11 +1,16 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +19,8 @@ import java.util.List;
  */
 public class Scraper {
 
-    public List<Result> getResultsInRange(int min, int max) {
+    //TODO HANDLE ERRORS BETTER
+    public List<Result> getResultsInRange(int min, int max) throws ParseException {
         List<Result> results = new ArrayList<Result>();
 
         // 14,000 is max as of 20/1/16 (hltv.org/results/14000
@@ -33,19 +39,30 @@ public class Scraper {
                 Elements teamTwoScores = document.select(".matchScoreCell span:nth-of-type(2)");
 
                 String entireResultsBox = document.select("div.centerFade").get(0).outerHtml();
-                List<Integer> dateAndNumOfEntries = getNumOfResultsPerDateHeading(entireResultsBox, dateHeadings);
+                List<Integer> numOfResultsPerDateIndex = getNumOfResultsPerDateHeading(entireResultsBox, dateHeadings.size());
 
                 if(teamOneNames.size() != teamTwoNames.size()
                         || teamTwoNames.size() != teamOneScores.size()
                         || teamOneScores.size() != teamTwoScores.size()){
                     System.out.println("Elements size mismatch...");
 
-                    return null; //TODO Throw exception
+                    return new ArrayList<Result>(0); //TODO Throw exception
                 }
 
+                List<Date> matchDates = getDateFromHeadings(dateHeadings);
+
+                int limit = numOfResultsPerDateIndex.get(0);
+                int offset = 0;
+                int dateIndex = 0;
 
                 for(int j = 0; j < teamOneNames.size(); j++){
-                    MatchType matchType = MatchType.UNDEFINED;
+                    if(j == limit) {
+                        dateIndex++;
+
+                        limit = limit + numOfResultsPerDateIndex.get(dateIndex);
+                    }
+
+                    MatchType matchType = MatchType.BEST_OF_ONE;
                     if(matchTypeText.get(j).text().startsWith("Best of 2")) {
                         matchType = MatchType.BEST_OF_TWO;
                     } else if (matchTypeText.get(j).text().startsWith("Best of 3")) {
@@ -60,7 +77,8 @@ public class Scraper {
                                                 teamTwoNames.get(j).text(),
                                                 Integer.parseInt(teamOneScores.get(j).text()),
                                                 Integer.parseInt(teamTwoScores.get(j).text()),
-                                                matchType)
+                                                matchType,
+                                                matchDates.get(dateIndex)) // FIXME PUT ACTUAL DATE HERE!
                                 );
                 }
             } catch (IOException e) {
@@ -71,8 +89,22 @@ public class Scraper {
         return results;
     }
 
-    private List<Integer> getNumOfResultsPerDateHeading(String entireResultsBox, Elements dateHeadings) {
-        List<Integer> resultsPerDate = new ArrayList<Integer>(dateHeadings.size());
+    private List<Date> getDateFromHeadings(Elements dateHeadings) throws ParseException {
+        DateFormat format = new SimpleDateFormat("E, MMMM d yyyy");
+
+        List<Date> dates = new ArrayList<Date>(dateHeadings.size());
+        for(Element element : dateHeadings) {
+            String dateText = element.text().replaceAll("st |nd |rd |th ", " ");
+            Long dateTime = format.parse(dateText).getTime();
+
+            dates.add(new Date(dateTime));
+        }
+
+        return  dates;
+    }
+
+    private List<Integer> getNumOfResultsPerDateHeading(String entireResultsBox, int numDates) {
+        List<Integer> resultsPerDate = new ArrayList<Integer>(numDates);
 
         int indexOfDateBoxCurrentlyOn = 0;
         // Loop through every character.
@@ -93,10 +125,10 @@ public class Scraper {
 
                 resultsPerDate.add(numOfResultsForThisDate);
                 indexOfDateBoxCurrentlyOn++;
-                i--;
+                i--; // Needs decerementing so the surrounding for loop picks up that a new matchListDateBox has been found
             }
 
-            if(indexOfDateBoxCurrentlyOn > dateHeadings.size()) {
+            if(indexOfDateBoxCurrentlyOn > numDates) {
                 break;
             }
         }
@@ -104,14 +136,16 @@ public class Scraper {
         return resultsPerDate;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
         Scraper scraper = new Scraper();
         java.sql.Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/csgo-scores", "postgres", "postgres");
 
         //TODO Get match date! Important!
 
-        for(int i = 0; i < 14000; i += 1050){
-            for(Result result : scraper.getResultsInRange(i, i + 1000)) {
+        for(int i = 0; i <= 100; i += 100) {
+            List<Result> results = scraper.getResultsInRange(i, i + 50);
+
+            for(Result result : results) {
                 System.out.println("Team One Name: " + result.getNameTeamOne() + "\n" +
                         "Team One Score: " + result.getScoreTeamOne() + "\n" +
                         "Team Two Name: " + result.getNameTeamTwo() + "\n" +
@@ -124,10 +158,12 @@ public class Scraper {
                                 "team_two, " +
                                 "score_team_one, " +
                                 "score_team_two, " +
-                                "match_types" +
+                                "match_type, " +
+                                "match_date" +
                                 ") " +
 
                                 " values (" +
+                                "?, " +
                                 "?, " +
                                 "?, " +
                                 "?, " +
@@ -140,6 +176,7 @@ public class Scraper {
                 statement.setInt(3, result.getScoreTeamOne());
                 statement.setInt(4, result.getScoreTeamTwo());
                 statement.setString(5, result.getMatchType().name());
+                statement.setDate(6, result.getDate());
 
                 statement.execute();
             }

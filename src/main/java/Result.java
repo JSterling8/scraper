@@ -11,7 +11,7 @@ public class Result {
     private MatchType matchType;
     private Date date;
 
-    public Result(String nameTeamOne, String nameTeamTwo, int scoreTeamOne, int scoreTeamTwo, MatchType matchType) {
+    public Result(String nameTeamOne, String nameTeamTwo, int scoreTeamOne, int scoreTeamTwo, MatchType matchType, Date date) {
         this.nameTeamOne = nameTeamOne;
         nameTeamOne.replace("'", "\\'");
         this.nameTeamTwo = nameTeamTwo;
@@ -19,6 +19,7 @@ public class Result {
         this.scoreTeamOne = scoreTeamOne;
         this.scoreTeamTwo = scoreTeamTwo;
         this.matchType = matchType;
+        this.date = date;
     }
 
     public String getNameTeamOne() {
