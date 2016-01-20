@@ -13,6 +13,8 @@ import java.util.List;
  * Created by anon on 20/01/2016.
  */
 public class ContinualScraper extends Scraper {
+    private static final long FIVE_SECONDS_IN_MILLIS = 1000l * 60l * 5l;
+
     private DatabaseLink databaseLink;
 
     public ContinualScraper() throws SQLException {
@@ -22,9 +24,9 @@ public class ContinualScraper extends Scraper {
     }
 
     public void listenForLatestResults () throws InterruptedException, SQLException, IOException, ParseException {
-        List<String> mostRecentMatchInDb = databaseLink.getLatestResult();
-
         while(true) {
+            List<String> mostRecentMatchInDb = databaseLink.getLatestResult();
+
             Document document = Jsoup.connect("http://www.hltv.org/results/0/")
                     .timeout(7000)
                     .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
@@ -41,7 +43,7 @@ public class ContinualScraper extends Scraper {
                 addRecentlyAddedMatches(mostRecentMatchInDb);
             }
 
-            Thread.sleep(1000 * 60 * 5);
+            Thread.sleep(FIVE_SECONDS_IN_MILLIS);
         }
     }
 

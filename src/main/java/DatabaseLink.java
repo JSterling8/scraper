@@ -21,13 +21,13 @@ public class DatabaseLink {
      * @throws SQLException
      */
     public List<String> getLatestResult() throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("SELECT team_one FROM result LIMIT 1");
+        PreparedStatement statement = connection.prepareStatement("SELECT team_one, team_two FROM result LIMIT 1");
         ResultSet resultSet = statement.executeQuery();
 
         resultSet.next();
 
-        String latestGameTeamOne = resultSet.getString(0);
-        String latestGameTeamTwo = resultSet.getString(1);
+        String latestGameTeamOne = resultSet.getString(1);
+        String latestGameTeamTwo = resultSet.getString(2);
 
         statement.close();
 
