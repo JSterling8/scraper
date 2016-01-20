@@ -78,7 +78,7 @@ public class Scraper {
                                                 Integer.parseInt(teamOneScores.get(j).text()),
                                                 Integer.parseInt(teamTwoScores.get(j).text()),
                                                 matchType,
-                                                matchDates.get(dateIndex))
+                                                matchDates.get(dateIndex)) 
                                 );
                 }
             } catch (IOException e) {
