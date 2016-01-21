@@ -54,6 +54,7 @@ public class ContinualScraper extends Scraper {
         List<Result> resultsOnPage = getLatestFiftyResults();
         List<Result> resultsToAddToDb = new ArrayList<Result>(50);
 
+        // FIXME Doesn't seem to add in correct order?  Added a match from 20th, 18th, and two from 16th, instead of the 3 new from the 20th.  Custom comparator to order by date?
         for(Result result : resultsOnPage) {
             if(!result.getNameTeamOne().equalsIgnoreCase(teamOneInDb) &&
                     !result.getNameTeamTwo().equalsIgnoreCase(teamTwoInDb)) {

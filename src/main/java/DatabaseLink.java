@@ -47,10 +47,12 @@ public class DatabaseLink {
                             "score_team_one, " +
                             "score_team_two, " +
                             "match_type, " +
-                            "match_date" +
+                            "match_date," +
+                            "series_identifier" +
                             ") " +
 
                             " values (" +
+                            "?, " +
                             "?, " +
                             "?, " +
                             "?, " +
@@ -65,6 +67,7 @@ public class DatabaseLink {
             statement.setInt(4, result.getScoreTeamTwo());
             statement.setString(5, result.getMatchType().name());
             statement.setDate(6, result.getDate());
+            statement.setLong(7, result.getSeriesIdentifier());
 
             statement.execute();
         }

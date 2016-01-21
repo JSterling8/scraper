@@ -10,8 +10,9 @@ public class Result {
     private int scoreTeamTwo;
     private MatchType matchType;
     private Date date;
+    private Long seriesIdentifier;
 
-    public Result(String nameTeamOne, String nameTeamTwo, int scoreTeamOne, int scoreTeamTwo, MatchType matchType, Date date) {
+    public Result(String nameTeamOne, String nameTeamTwo, int scoreTeamOne, int scoreTeamTwo, MatchType matchType, Date date, Long seriesIdentifier) {
         this.nameTeamOne = nameTeamOne;
         nameTeamOne.replace("'", "\\'");
         this.nameTeamTwo = nameTeamTwo;
@@ -20,6 +21,7 @@ public class Result {
         this.scoreTeamTwo = scoreTeamTwo;
         this.matchType = matchType;
         this.date = date;
+        this.seriesIdentifier = seriesIdentifier;
     }
 
     public String getNameTeamOne() {
@@ -68,5 +70,13 @@ public class Result {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Long getSeriesIdentifier() {
+        return seriesIdentifier;
+    }
+
+    public void setSeriesIdentifier(Long seriesIdentifier) {
+        this.seriesIdentifier = seriesIdentifier;
     }
 }

@@ -19,13 +19,20 @@ public class BulkHistoricalScraper extends Scraper {
         java.sql.Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/csgo-scores", "postgres", "postgres");
         DatabaseLink databaseLink = new DatabaseLink(connection);
 
-        for (int i = 0; i <= 13950; i += 1050) {
-            System.out.println("Getting games " + i + " - " + i + 1000);
-            List<Result> results = bulkHistoricalScraper.getResultsInRange(i, i + 1000);
+        long totalTime = 0;
 
+        for (int i = 0; i <= 100; i += 50) {
+            System.out.println("Getting games " + i + " - " + (i + 50));
+            List<Result> results = bulkHistoricalScraper.getResultsInRange(i, i + 50);
             databaseLink.insertResults(results);
+
+            System.out.println("50 match series (" + results.size() + " matches) saved to DB in " + stopwatch.elapsedTime(TimeUnit.SECONDS) + " seconds.");
+
+            totalTime += stopwatch.elapsedMillis();
+            stopwatch.reset();
+            stopwatch.start();
         }
 
-        System.out.println("All matches scraped and saved to DB in " + stopwatch.elapsedTime(TimeUnit.SECONDS) + " seconds.");
+        System.out.println("All matches scraped and saved to DB in " + (totalTime / 1000l) + " seconds.");
     }
 }
