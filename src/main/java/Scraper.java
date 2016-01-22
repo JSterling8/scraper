@@ -15,11 +15,11 @@ import java.util.List;
 public class Scraper {
     private DateHelper dateHelper = new DateHelper();
 
-    public List<Result> getLatestFiftyResults() throws IOException, ParseException {
+    public List<Result> getLatestFiftyResults() throws IOException, ParseException, InterruptedException {
         return getResultsInRange(0, 50);
     }
 
-    public List<Result> getResultsInRange(int min, int max) throws ParseException, IOException {
+    public List<Result> getResultsInRange(int min, int max) throws ParseException, IOException, InterruptedException {
         List<Result> results = new ArrayList<Result>();
 
         // 13,950 is max as of 20/1/16 (hltv.org/results/13950/
@@ -41,6 +41,8 @@ public class Scraper {
                     System.err.println("Failed to get load page " + url + " due to the following exception: " + e.getClass());
 
                     successfullyRetrieved = false;
+
+                    Thread.sleep(5000l);
                 }
             }
             Elements dateHeadings = document.select("div.matchListDateBox");
@@ -125,7 +127,7 @@ public class Scraper {
         return results;
     }
 
-    private List<Result> getAllResultsFromDetailsPage(String url, String teamOne, String teamTwo, MatchType matchType, Date date, long seriesIdentifier, int seriesScoreTeamOne, int seriesScoreTeamTwo) throws IOException {
+    private List<Result> getAllResultsFromDetailsPage(String url, String teamOne, String teamTwo, MatchType matchType, Date date, long seriesIdentifier, int seriesScoreTeamOne, int seriesScoreTeamTwo) throws IOException, InterruptedException {
         List<Result> results = new ArrayList<Result>(5);
 
         boolean successfullyRetrieved = false;
@@ -143,6 +145,8 @@ public class Scraper {
                 System.err.println("Failed to load URL: " + url);
 
                 successfullyRetrieved = false;
+
+                Thread.sleep(5000l);
             }
         }
 

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @author Jonathan Sterling
  */
 public class BulkHistoricalScraper extends Scraper {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, IOException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, IOException, InterruptedException {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
         BulkHistoricalScraper bulkHistoricalScraper = new BulkHistoricalScraper();

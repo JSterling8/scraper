@@ -45,6 +45,8 @@ public class ContinualScraper extends Scraper {
                     System.err.println("Failed to load " + url + " in continual scraper due to the following exception: " + e.getClass());
 
                     successfullyRetrieved = false;
+
+                    Thread.sleep(5000l);
                 }
             }
 
@@ -63,7 +65,7 @@ public class ContinualScraper extends Scraper {
         }
     }
 
-    private void addRecentlyAddedMatches(List<String> mostRecentTeamsInDb) throws IOException, ParseException, SQLException {
+    private void addRecentlyAddedMatches(List<String> mostRecentTeamsInDb) throws IOException, ParseException, SQLException, InterruptedException {
         String teamOneInDb = mostRecentTeamsInDb.get(0);
         String teamTwoInDb = mostRecentTeamsInDb.get(1);
 
