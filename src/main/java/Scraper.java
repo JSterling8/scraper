@@ -97,7 +97,7 @@ public class Scraper {
                     // If a best of one just shows as 1-0, record it as 16-8.
                     if(teamOneScore < 15 && teamTwoScore < 15) {
                         teamOneScore = (teamOneScore > 0) ? teamOneScore * 16 : 8;
-                        teamTwoScore = (teamTwoScore > 0) ? teamTwoScore * 16 : 8;
+                        teamTwoScore = (teamTwoScore > 0) ? teamTwoScore * 16 : teamOneScore / 2;
                     }
 
                     results.add(new Result(teamOneNames.get(j).text(),
