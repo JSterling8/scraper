@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,9 +22,13 @@ public class BulkHistoricalScraper extends Scraper {
 
         long totalTime = 0;
 
-        for (int i = 0; i <= 100; i += 50) {
+        for (int i = 0; i <= 14000; i += 50) {
             System.out.println("Getting games " + i + " - " + (i + 50));
             List<Result> results = bulkHistoricalScraper.getResultsInRange(i, i + 50);
+
+            // This is so they're loaded into the database from the bottom to the top (i.e., newest will have highest id in db)
+            Collections.reverse(results);
+
             databaseLink.insertResults(results);
 
             System.out.println("50 match series (" + results.size() + " matches) saved to DB in " + stopwatch.elapsedTime(TimeUnit.SECONDS) + " seconds.");
