@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,6 +64,9 @@ public class ContinualScraper extends Scraper {
                 break;
             }
         }
+
+        // This is so they're loaded into the database from the bottom to the top.
+        Collections.reverse(resultsToAddToDb);
 
         databaseLink.insertResults(resultsToAddToDb);
     }
