@@ -22,7 +22,7 @@ public class BulkHistoricalScraper extends Scraper {
 
         long totalTime = 0;
 
-        for (int i = 0; i <= 14000; i += 50) {
+        for (int i = 4900; i <= 14000; i += 50) {
             System.out.println("Getting games " + i + " - " + (i + 50));
             List<Result> results = bulkHistoricalScraper.getResultsInRange(i, i + 50);
 

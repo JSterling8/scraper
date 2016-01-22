@@ -28,10 +28,25 @@ public class ContinualScraper extends Scraper {
         while(true) {
             List<String> mostRecentMatchInDb = databaseLink.getLatestResult();
 
-            Document document = Jsoup.connect("http://www.hltv.org/results/0/")
-                    .timeout(7000)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
-                    .get();
+            boolean successfullyRetrieved = false;
+            Document document = null;
+
+            while(!successfullyRetrieved) {
+                String url = "http://www.hltv.org/results/0/";
+
+                try {
+                    document = Jsoup.connect(url)
+                            .timeout(7000)
+                            .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
+                            .get();
+
+                    successfullyRetrieved = true;
+                } catch (Exception e) {
+                    System.err.println("Failed to load " + url + " in continual scraper due to the following exception: " + e.getClass());
+
+                    successfullyRetrieved = false;
+                }
+            }
 
             Elements teamOneNames = document.select(".matchTeam1Cell a");
             Elements teamTwoNames = document.select(".matchTeam2Cell a");

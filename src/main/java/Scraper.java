@@ -24,11 +24,25 @@ public class Scraper {
 
         // 13,950 is max as of 20/1/16 (hltv.org/results/13950/
         for (int i = min; i < max; i += 50) {
-            Document document = Jsoup.connect("http://www.hltv.org/results/" + i + "/")
-                    .timeout(7000)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
-                    .get();
 
+            boolean successfullyRetrieved = false;
+            Document document = null;
+            String url = "http://www.hltv.org/results/" + i + "/";
+
+            while(!successfullyRetrieved) {
+                try {
+                    document = Jsoup.connect(url)
+                            .timeout(7000)
+                            .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
+                            .get();
+
+                    successfullyRetrieved = true;
+                } catch (Exception e) {
+                    System.err.println("Failed to get load page " + url + " due to the following exception: " + e.getClass());
+
+                    successfullyRetrieved = false;
+                }
+            }
             Elements dateHeadings = document.select("div.matchListDateBox");
             Elements matchTypeText = document.select("div.matchTimeCell");
             Elements teamOneNames = document.select(".matchTeam1Cell a");
@@ -45,7 +59,7 @@ public class Scraper {
                     || teamOneScores.size() != teamTwoScores.size()) {
                 System.out.println("Elements size mismatch...");
 
-                return new ArrayList<Result>(0); //TODO Throw exception
+                throw new RuntimeException("Unexpected response for team one names and scores.  The results page might've changed...");
             }
 
             List<Date> matchDates = dateHelper.getDateFromHeadings(dateHeadings);
@@ -114,17 +128,22 @@ public class Scraper {
     private List<Result> getAllResultsFromDetailsPage(String url, String teamOne, String teamTwo, MatchType matchType, Date date, long seriesIdentifier, int seriesScoreTeamOne, int seriesScoreTeamTwo) throws IOException {
         List<Result> results = new ArrayList<Result>(5);
 
+        boolean successfullyRetrieved = false;
         Document document = null;
 
-        try {
-            document = Jsoup.connect(url)
-                    .timeout(7000)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
-                    .get();
-        } catch (SocketTimeoutException e) {
-            System.err.println("Failed to load URL: " + url);
+        while(!successfullyRetrieved) {
+            try {
+                document = Jsoup.connect(url)
+                        .timeout(7000)
+                        .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
+                        .get();
 
-            System.exit(1);
+                successfullyRetrieved = true;
+            } catch (SocketTimeoutException e) {
+                System.err.println("Failed to load URL: " + url);
+
+                successfullyRetrieved = false;
+            }
         }
 
         Elements teamOneScores = document.select("div.hotmatchbox div.hotmatchbox:nth-of-type(3n) > span:nth-of-type(1)");
