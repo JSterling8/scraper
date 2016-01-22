@@ -77,6 +77,7 @@ public class Scraper {
                 }
 
                 MatchType matchType = MatchType.BEST_OF_ONE;
+
                 if (matchTypeText.get(j).text().startsWith("Best of 2")) {
                     matchType = MatchType.BEST_OF_TWO;
                 } else if (matchTypeText.get(j).text().startsWith("Best of 3")) {
@@ -94,7 +95,7 @@ public class Scraper {
                     int teamTwoScore = Integer.parseInt(teamTwoScores.get(j).text());
 
                     // If a best of one just shows as 1-0, record it as 16-8.
-                    if(teamOneScore < 16 && teamTwoScore < 16) {
+                    if(teamOneScore < 15 && teamTwoScore < 15) {
                         teamOneScore = (teamOneScore > 0) ? teamOneScore * 16 : 8;
                         teamTwoScore = (teamTwoScore > 0) ? teamTwoScore * 16 : 8;
                     }
@@ -158,7 +159,7 @@ public class Scraper {
                 int teamOneScore = Integer.parseInt(teamOneScores.get(i).text());
                 int teamTwoScore = Integer.parseInt(teamTwoScores.get(i).text());
 
-                if (teamOneScore < 16 && teamTwoScore < 16) {
+                if (teamOneScore < 15 && teamTwoScore < 15) {
                     // Invalid scores (maybe it's showing a 1-0 default win on a map)
 
                     continue;
