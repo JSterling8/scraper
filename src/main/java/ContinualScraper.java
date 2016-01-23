@@ -94,6 +94,16 @@ public class ContinualScraper extends Scraper {
         Collections.reverse(resultsToAddToDb);
 
         databaseLink.insertResults(resultsToAddToDb);
+
+        System.out.println("The following results were added to the database: ");
+
+        for(Result result : resultsToAddToDb) {
+            System.out.println(
+                    result.getNameTeamOne() + "  " + result.getScoreTeamOne() +
+                    "  vs  " +
+                    result.getScoreTeamTwo() + "  " + result.getScoreTeamTwo() +
+                    "  -  " + result.getDate());
+        }
     }
 
     public static void main(String[] args) throws SQLException, IOException, InterruptedException, ParseException {
