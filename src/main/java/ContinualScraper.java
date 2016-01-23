@@ -25,15 +25,17 @@ public class ContinualScraper extends Scraper {
     }
 
     public void listenForLatestResults () throws InterruptedException, SQLException, IOException, ParseException {
+        long checkNum = 1;
+
         while(true) {
+            System.out.println("Performing check: " + checkNum);
+
             List<String> mostRecentMatchInDb = databaseLink.getLatestResult();
 
             boolean successfullyRetrieved = false;
             Document document = null;
 
-            long checkNum = 1;
             while(!successfullyRetrieved) {
-                System.out.println("Performing check: " + checkNum);
 
                 String url = "http://www.hltv.org/results/0/";
 
