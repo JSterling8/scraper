@@ -101,7 +101,7 @@ public class ContinualScraper extends Scraper {
             System.out.println(
                     result.getNameTeamOne() + "  " + result.getScoreTeamOne() +
                     "  vs  " +
-                    result.getScoreTeamTwo() + "  " + result.getScoreTeamTwo() +
+                    result.getScoreTeamTwo() + "  " + result.getNameTeamTwo() +
                     "  -  " + result.getDate());
         }
     }
