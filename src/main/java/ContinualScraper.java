@@ -14,7 +14,7 @@ import java.util.List;
  * Created by anon on 20/01/2016.
  */
 public class ContinualScraper extends Scraper {
-    private static final long FIVE_SECONDS_IN_MILLIS = 1000l * 60l * 5l;
+    private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
 
     private DatabaseLink databaseLink;
 
@@ -31,7 +31,10 @@ public class ContinualScraper extends Scraper {
             boolean successfullyRetrieved = false;
             Document document = null;
 
+            long checkNum = 1;
             while(!successfullyRetrieved) {
+                System.out.println("Performing check: " + checkNum);
+
                 String url = "http://www.hltv.org/results/0/";
 
                 try {
@@ -58,10 +61,14 @@ public class ContinualScraper extends Scraper {
 
             if(!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) &&
                     !latestTeamTwoNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(1))) {
+                System.out.println("Identified new match(es).  Adding to database...");
                 addRecentlyAddedMatches(mostRecentMatchInDb);
             }
 
-            Thread.sleep(FIVE_SECONDS_IN_MILLIS);
+            System.out.println("No new matches found.  Sleeping for five minutes before reattempting.");
+            Thread.sleep(FIVE_MINUTES_IN_MILLIS);
+
+            checkNum++;
         }
     }
 
