@@ -82,7 +82,7 @@ public class ContinualScraper extends Scraper {
         List<Result> resultsToAddToDb = new ArrayList<Result>();
 
         for(Result result : resultsOnPage) {
-            if(!result.getNameTeamOne().equalsIgnoreCase(teamOneInDb) &&
+            if(!result.getNameTeamOne().equalsIgnoreCase(teamOneInDb) ||
                     !result.getNameTeamTwo().equalsIgnoreCase(teamTwoInDb)) {
                 resultsToAddToDb.add(result);
             } else {
