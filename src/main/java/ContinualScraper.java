@@ -61,7 +61,7 @@ public class ContinualScraper extends Scraper {
             String latestTeamOneNameOnPage = teamOneNames.get(0).text();
             String latestTeamTwoNameOnPage = teamTwoNames.get(0).text();
 
-            if(!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) &&
+            if(!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) ||
                     !latestTeamTwoNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(1))) {
                 System.out.println("Identified new match(es).  Adding to database...");
                 addRecentlyAddedMatches(mostRecentMatchInDb);
