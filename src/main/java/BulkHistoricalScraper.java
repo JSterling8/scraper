@@ -22,7 +22,7 @@ public class BulkHistoricalScraper extends Scraper {
 
         long totalTime = 0;
 
-        for (int i = 4900; i <= 14000; i += 50) {
+        for (int i = 13850; i >= 0; i -= 50) {
             System.out.println("Getting games " + i + " - " + (i + 50));
             List<Result> results = bulkHistoricalScraper.getResultsInRange(i, i + 50);
 
@@ -36,6 +36,10 @@ public class BulkHistoricalScraper extends Scraper {
             totalTime += stopwatch.elapsedMillis();
             stopwatch.reset();
             stopwatch.start();
+
+            if(i!= 0 && i % 1000 == 0) {
+                System.out.println("Total time for all matches so far: " + totalTime/1000l + " seconds.");
+            }
         }
 
         System.out.println("All matches scraped and saved to DB in " + (totalTime / 1000l) + " seconds.");

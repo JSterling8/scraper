@@ -106,7 +106,7 @@ public class Scraper {
                                     teamTwoScore,
                                     matchType,
                                     matchDate,
-                                    matchDate.getTime() + j)
+                                    matchDate.getTime() + Integer.toUnsignedLong(j))
                     );
                 } else {
                     String urlToLoadForAllDetails = "http://www.hltv.org" + detailsLinks.get(j).attr("href");
@@ -118,7 +118,7 @@ public class Scraper {
                                 teamTwoNames.get(j).text(),
                                     matchType,
                                     matchDate,
-                                    matchDate.getTime() + j,
+                                    matchDate.getTime() + Integer.toUnsignedLong(j),
                                     Integer.parseInt(teamOneScores.get(j).text()),
                                     Integer.parseInt(teamTwoScores.get(j).text())));
                 }
@@ -164,7 +164,6 @@ public class Scraper {
 
                     continue;
                 }
-
 
                     results.add(new Result(
                         teamOne,
