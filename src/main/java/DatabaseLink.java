@@ -10,9 +10,11 @@ import java.util.List;
  */
 public class DatabaseLink {
     private final Connection connection;
+    private RatingService ratingService;
 
     public DatabaseLink(Connection connection) {
         this.connection = connection;
+        ratingService = new RatingService();
     }
 
     /**
@@ -20,7 +22,7 @@ public class DatabaseLink {
      * match in the db
      * @throws SQLException
      */
-    public List<String> getLatestResult() throws SQLException {
+    public List<String> getLatestTeams() throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT team_one, team_two FROM result ORDER BY id desc LIMIT 1");
         ResultSet resultSet = statement.executeQuery();
 
@@ -70,6 +72,8 @@ public class DatabaseLink {
             statement.setLong(7, result.getSeriesIdentifier());
 
             statement.execute();
+
+            ratingService.handleRatingForLatestResult();
         }
     }
 }

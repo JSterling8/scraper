@@ -30,7 +30,7 @@ public class ContinualScraper extends Scraper {
         while(true) {
             System.out.println("Performing check: " + checkNum);
 
-            List<String> mostRecentMatchInDb = databaseLink.getLatestResult();
+            List<String> mostRecentMatchInDb = databaseLink.getLatestTeams();
 
             boolean successfullyRetrieved = false;
             Document document = null;
