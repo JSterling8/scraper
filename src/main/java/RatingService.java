@@ -15,6 +15,7 @@ public class RatingService {
                 Document document = Jsoup.connect("http://localhost:8080/rating/parse-latest-result/")
                         .timeout(7000)
                         .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
+                        .ignoreContentType(true)
                         .get();
 
                 // Give the other app time to parse the result before continuing
