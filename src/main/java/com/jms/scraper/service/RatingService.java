@@ -1,18 +1,26 @@
+package com.jms.scraper.service;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 /**
  * Created by anon on 31/01/2016.
  */
+@Service
 public class RatingService {
+    public RatingService(){
+
+    }
+
     public void handleRatingForLatestResult() {
         boolean rated = false;
 
         while (!rated) {
             try {
-                Document document = Jsoup.connect("http://localhost:8080/rating/parse-latest-result/")
+                Document document = Jsoup.connect("http://localhost:8080/trueskill-rater/rating/parse-latest-result/")
                         .timeout(7000)
                         .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
                         .ignoreContentType(true)

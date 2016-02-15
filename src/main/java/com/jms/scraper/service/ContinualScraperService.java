@@ -1,9 +1,17 @@
+package com.jms.scraper.service;
+
+import com.jms.scraper.model.Result;
+import com.jms.scraper.repository.ResultRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,29 +21,31 @@ import java.util.List;
 /**
  * Created by anon on 20/01/2016.
  */
-public class ContinualScraper extends Scraper {
+@Service
+public class ContinualScraperService extends Scraper {
+    @Autowired
+    private ResultRepository resultRepository;
+
+    @Autowired
+    private RatingService ratingService;
+
     private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
 
-    private DatabaseLink databaseLink;
-
-    public ContinualScraper() throws SQLException {
-        java.sql.Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/csgo-scores", "postgres", "postgres");
-
-        databaseLink = new DatabaseLink(connection);
+    public ContinualScraperService() throws SQLException {
     }
 
-    public void listenForLatestResults () throws InterruptedException, SQLException, IOException, ParseException {
+    public void listenForLatestResults() throws InterruptedException, SQLException, IOException, ParseException {
         long checkNum = 1;
 
-        while(true) {
+        while (true) {
             System.out.println("Performing check: " + checkNum);
 
-            List<String> mostRecentMatchInDb = databaseLink.getLatestTeams();
+            List<String> mostRecentMatchInDb = getLatestTeams();
 
             boolean successfullyRetrieved = false;
             Document document = null;
 
-            while(!successfullyRetrieved) {
+            while (!successfullyRetrieved) {
 
                 String url = "http://www.hltv.org/results/0/";
 
@@ -51,7 +61,7 @@ public class ContinualScraper extends Scraper {
 
                     successfullyRetrieved = false;
 
-                    Thread.sleep(5000l);
+                    Thread.sleep(1000l * 60l);
                 }
             }
 
@@ -61,7 +71,7 @@ public class ContinualScraper extends Scraper {
             String latestTeamOneNameOnPage = teamOneNames.get(0).text();
             String latestTeamTwoNameOnPage = teamTwoNames.get(0).text();
 
-            if(!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) ||
+            if (!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) ||
                     !latestTeamTwoNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(1))) {
                 System.out.println("Identified new match(es).  Adding to database...");
                 addRecentlyAddedMatches(mostRecentMatchInDb);
@@ -82,8 +92,8 @@ public class ContinualScraper extends Scraper {
         List<Result> resultsToAddToDb = new ArrayList<Result>();
 
         for(Result result : resultsOnPage) {
-            if(!result.getNameTeamOne().equalsIgnoreCase(teamOneInDb) ||
-                    !result.getNameTeamTwo().equalsIgnoreCase(teamTwoInDb)) {
+            if(!result.getTeamOne().equalsIgnoreCase(teamOneInDb) ||
+                    !result.getTeamTwo().equalsIgnoreCase(teamTwoInDb)) {
                 resultsToAddToDb.add(result);
             } else {
                 break;
@@ -93,22 +103,34 @@ public class ContinualScraper extends Scraper {
         // This is so they're loaded into the database from the bottom to the top.
         Collections.reverse(resultsToAddToDb);
 
-        databaseLink.insertResults(resultsToAddToDb);
+        for(Result result : resultsToAddToDb) {
+            resultRepository.save(result);
+            ratingService.handleRatingForLatestResult();
+        }
 
         System.out.println("The following results were added to the database: ");
 
         for(Result result : resultsToAddToDb) {
             System.out.println(
-                    result.getNameTeamOne() + "  " + result.getScoreTeamOne() +
+                    result.getTeamOne() + "  " + result.getScoreTeamOne() +
                     "  vs  " +
-                    result.getScoreTeamTwo() + "  " + result.getNameTeamTwo() +
-                    "  -  " + result.getDate());
+                    result.getScoreTeamTwo() + "  " + result.getTeamTwo() +
+                    "  -  " + result.getMatchDate());
         }
     }
 
-    public static void main(String[] args) throws SQLException, IOException, InterruptedException, ParseException {
-        ContinualScraper scraper = new ContinualScraper();
+    public void start() throws SQLException, IOException, InterruptedException, ParseException {
+        listenForLatestResults();
+    }
 
-        scraper.listenForLatestResults();
+    public List<String> getLatestTeams() {
+        Page<Result> resultPage = resultRepository.findAll(new PageRequest(0, 1, Sort.Direction.DESC, "id"));
+        Result result = resultPage.getContent().get(0);
+
+        List<String> teams = new ArrayList<String>(2);
+        teams.add(result.getTeamOne());
+        teams.add(result.getTeamTwo());
+
+        return teams;
     }
 }

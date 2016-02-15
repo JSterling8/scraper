@@ -1,7 +1,12 @@
+package com.jms.scraper.service;
+
 import com.google.common.base.Stopwatch;
+import com.jms.scraper.model.Result;
+import com.jms.scraper.repository.ResultRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Collections;
@@ -11,25 +16,25 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Jonathan Sterling
  */
-public class BulkHistoricalScraper extends Scraper {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, IOException, InterruptedException {
+@Service
+public class BulkHistoricalScraperService extends Scraper {
+    @Autowired
+    private ResultRepository resultRepository;
+
+    public void start() throws ClassNotFoundException, SQLException, ParseException, IOException, InterruptedException {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
-        BulkHistoricalScraper bulkHistoricalScraper = new BulkHistoricalScraper();
-
-        java.sql.Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/csgo-scores", "postgres", "postgres");
-        DatabaseLink databaseLink = new DatabaseLink(connection);
 
         long totalTime = 0;
 
         for (int i = 13850; i >= 0; i -= 50) {
             System.out.println("Getting games " + i + " - " + (i + 50));
-            List<Result> results = bulkHistoricalScraper.getResultsInRange(i, i + 50);
+            List<Result> results = getResultsInRange(i, i + 50);
 
             // This is so they're loaded into the database from the bottom to the top (i.e., newest will have highest id in db)
             Collections.reverse(results);
 
-            databaseLink.insertResults(results);
+            resultRepository.save(results);
 
             System.out.println("50 match series (" + results.size() + " matches) saved to DB in " + stopwatch.elapsedTime(TimeUnit.SECONDS) + " seconds.");
 

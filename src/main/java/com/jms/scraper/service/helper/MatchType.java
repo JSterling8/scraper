@@ -1,3 +1,5 @@
+package com.jms.scraper.service.helper;
+
 /**
  * @author Jonathan Sterling
  */

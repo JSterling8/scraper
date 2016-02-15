@@ -1,5 +1,8 @@
+package com.jms.scraper.service.helper;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.text.DateFormat;
@@ -11,6 +14,7 @@ import java.util.List;
 /**
  * Created by anon on 20/01/2016.
  */
+@Component
 public class DateHelper {
 
     public List<Date> getDateFromHeadings(Elements dateHeadings) throws ParseException {

@@ -1,6 +1,13 @@
+package com.jms.scraper.service;
+
+import com.jms.scraper.model.Result;
+import com.jms.scraper.service.helper.DateHelper;
+import com.jms.scraper.service.helper.MatchType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -12,7 +19,9 @@ import java.util.List;
 /**
  * Created by anon on 20/01/2016.
  */
+@Service
 public class Scraper {
+    @Autowired
     private DateHelper dateHelper = new DateHelper();
 
     public List<Result> getLatestFiftyResults() throws IOException, ParseException, InterruptedException {
