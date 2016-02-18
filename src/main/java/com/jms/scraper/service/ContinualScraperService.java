@@ -5,10 +5,13 @@ import com.jms.scraper.repository.ResultRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,6 +33,8 @@ public class ContinualScraperService extends Scraper {
     private RatingService ratingService;
 
     private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
+    private static final Logger logger = LoggerFactory.getLogger(ContinualScraperService.class);
+    private static boolean needToRunStartupMethod = true;
 
     public ContinualScraperService() throws SQLException {
     }
@@ -119,8 +124,21 @@ public class ContinualScraperService extends Scraper {
         }
     }
 
+    @Scheduled(fixedRate = Long.MAX_VALUE)
+    public void keepAlive() throws InterruptedException, SQLException, ParseException, IOException {
+        if (needToRunStartupMethod) {
+            start();
+            needToRunStartupMethod = false;
+        }
+    }
+
     public void start() throws SQLException, IOException, InterruptedException, ParseException {
-        listenForLatestResults();
+        if(needToRunStartupMethod) {
+            logger.info("Starting continual scraper");
+            listenForLatestResults();
+        } else {
+            logger.error("Attempted to start contintinual scraper but it's already running...");
+        }
     }
 
     public List<String> getLatestTeams() {
