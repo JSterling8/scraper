@@ -25,18 +25,22 @@ public class Odd {
     @Column(name = "odds_team_two")
     private int oddsTeamTwo;
 
+    @Column(name = "winning_team")
+    private String winningTeam;
+
     @Column(name = "match_date")
     private Date matchDate;
 
     public Odd() {
     }
 
-    public Odd(Long id, String teamOne, String teamTwo, int scoreTeamOne, int scoreTeamTwo, Date matchDate) {
+    public Odd(Long id, String teamOne, String teamTwo, int scoreTeamOne, int scoreTeamTwo, String winningTeam, Date matchDate) {
         this.id = id;
         this.teamOne = teamOne;
         this.teamTwo = teamTwo;
         this.oddsTeamOne = scoreTeamOne;
         this.oddsTeamTwo = scoreTeamTwo;
+        this.winningTeam = winningTeam;
         this.matchDate = matchDate;
     }
 
@@ -78,6 +82,14 @@ public class Odd {
 
     public void setOddsTeamTwo(int oddsTeamTwo) {
         this.oddsTeamTwo = oddsTeamTwo;
+    }
+
+    public String getWinningTeam() {
+        return winningTeam;
+    }
+
+    public void setWinningTeam(String winningTeam) {
+        this.winningTeam = winningTeam;
     }
 
     public Date getMatchDate() {
