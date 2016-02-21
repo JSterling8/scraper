@@ -1,7 +1,8 @@
-package com.jms.scraper.service;
+package com.jms.scraper.service.result;
 
 import com.jms.scraper.model.Result;
 import com.jms.scraper.repository.ResultRepository;
+import com.jms.scraper.service.RatingService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by anon on 20/01/2016.
  */
 @Service
-public class ContinualScraperService extends Scraper {
+public class ResultContinualResultScraperService extends ResultScraper {
     @Autowired
     private ResultRepository resultRepository;
 
@@ -33,10 +34,10 @@ public class ContinualScraperService extends Scraper {
     private RatingService ratingService;
 
     private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
-    private static final Logger logger = LoggerFactory.getLogger(ContinualScraperService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResultContinualResultScraperService.class);
     private static boolean needToRunStartupMethod = true;
 
-    public ContinualScraperService() throws SQLException {
+    public ResultContinualResultScraperService() throws SQLException {
     }
 
     public void listenForLatestResults() throws InterruptedException, SQLException, IOException, ParseException {

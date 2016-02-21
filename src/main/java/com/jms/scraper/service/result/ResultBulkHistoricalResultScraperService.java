@@ -1,4 +1,4 @@
-package com.jms.scraper.service;
+package com.jms.scraper.service.result;
 
 import com.google.common.base.Stopwatch;
 import com.jms.scraper.model.Result;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @author Jonathan Sterling
  */
 @Service
-public class BulkHistoricalScraperService extends Scraper {
+public class ResultBulkHistoricalResultScraperService extends ResultScraper {
     @Autowired
     private ResultRepository resultRepository;
 

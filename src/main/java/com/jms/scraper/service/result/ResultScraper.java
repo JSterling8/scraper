@@ -1,4 +1,4 @@
-package com.jms.scraper.service;
+package com.jms.scraper.service.result;
 
 import com.jms.scraper.model.Result;
 import com.jms.scraper.service.helper.DateHelper;
@@ -20,7 +20,7 @@ import java.util.List;
  * Created by anon on 20/01/2016.
  */
 @Service
-public class Scraper {
+public class ResultScraper {
     @Autowired
     private DateHelper dateHelper = new DateHelper();
 

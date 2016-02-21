@@ -8,6 +8,7 @@ import java.sql.Date;
 /**
  * Created by anon on 30/01/2016.
  */
+@Table(name = "resul")
 @Entity
 public class Result {
     @Id
