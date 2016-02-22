@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class DateHelper {
 
-    public List<Date> getDateFromHeadings(Elements dateHeadings) throws ParseException {
+    public List<Date> getDateFromHltvHeadings(Elements dateHeadings) throws ParseException {
         DateFormat format = new SimpleDateFormat("E, MMMM d yyyy");
 
         List<Date> dates = new ArrayList<Date>(dateHeadings.size());
@@ -49,7 +49,7 @@ public class DateHelper {
         return text;
     }
 
-    public List<Integer> getNumOfResultsPerDateHeading(String entireResultsBox, int numDates) {
+    public List<Integer> getNumOfResultsPerHltvDateHeading(String entireResultsBox, int numDates) {
         List<Integer> resultsPerDate = new ArrayList<Integer>(numDates);
 
         int indexOfDateBoxCurrentlyOn = 0;
@@ -81,5 +81,25 @@ public class DateHelper {
         }
 
         return resultsPerDate;
+    }
+
+    public Date getDateFromCsgoNutsText(String dateText) throws ParseException {
+        DateFormat format = new SimpleDateFormat("MMMM d yyyy");
+
+        dateText = dateText.trim();
+        dateText = stripDateOrdinal(dateText);
+        Long dateTime = format.parse(dateText).getTime();
+
+        return new Date(dateTime);
+    }
+
+    public Date getDateFromHyphenatedText(String dateText) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        dateText = dateText.trim();
+        dateText = stripDateOrdinal(dateText);
+        Long dateTime = format.parse(dateText).getTime();
+
+        return new Date(dateTime);
     }
 }

@@ -63,7 +63,7 @@ public class ResultScraper {
             Elements detailsLinks = document.select("div.matchActionCell a");
 
             String entireResultsBox = document.select("div.centerFade").get(0).outerHtml();
-            List<Integer> numOfResultsPerDateIndex = dateHelper.getNumOfResultsPerDateHeading(entireResultsBox, dateHeadings.size());
+            List<Integer> numOfResultsPerDateIndex = dateHelper.getNumOfResultsPerHltvDateHeading(entireResultsBox, dateHeadings.size());
 
             if (teamOneNames.size() != teamTwoNames.size()
                     || teamTwoNames.size() != teamOneScores.size()
@@ -73,7 +73,7 @@ public class ResultScraper {
                 throw new RuntimeException("Unexpected response for team one names and scores.  The results page might've changed...");
             }
 
-            List<Date> matchDates = dateHelper.getDateFromHeadings(dateHeadings);
+            List<Date> matchDates = dateHelper.getDateFromHltvHeadings(dateHeadings);
 
             int resultsLimitForDate = numOfResultsPerDateIndex.get(0);
             int dateIndex = 0;
