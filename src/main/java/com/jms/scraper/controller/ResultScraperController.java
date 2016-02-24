@@ -39,7 +39,7 @@ public class ResultScraperController {
 
     @RequestMapping("/start/continual")
     public String startContinual() throws ClassNotFoundException, SQLException, InterruptedException, ParseException, IOException {
-        resultContinualScraperService.start();
+        resultContinualScraperService.run();
 
         return "done";
     }

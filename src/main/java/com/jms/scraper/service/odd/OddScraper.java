@@ -12,7 +12,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -25,9 +24,10 @@ import java.util.concurrent.TimeUnit;
  * Created by anon on 21/02/2016.
  */
 @Service
-public class OddScraper {
+public class OddScraper implements Runnable {
     private static final long THIRTY_MINUTES_IN_MILLIS = 1000l * 60l * 30l;
     private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60L * 5l;
+
     @Autowired
     private DateHelper dateHelper;
 
@@ -59,6 +59,8 @@ public class OddScraper {
         add("qm");
     }};
 
+    private boolean needToRunStartupMethod = true;
+
     public List<Odd> scrapeAll() throws InterruptedException, ParseException {
         LOGGER.info("Beginning scrape for all teams in team list.  Number of teams in list: " + allTeams.size());
         oddRepository.deleteAll();
@@ -83,9 +85,11 @@ public class OddScraper {
         return allOdds;
     }
 
-    @Scheduled(fixedRate = Long.MAX_VALUE)
-    public void addLatestOddsToDb() throws ParseException, InterruptedException {
+    public void listenForLatestOdds() throws ParseException, InterruptedException {
+        int checkNum = 1;
         while (true) {
+            LOGGER.info("Beginning odds check #: " + checkNum);
+
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.start();
 
@@ -112,11 +116,13 @@ public class OddScraper {
             sortOdds(oddsToAddToDb);
             removeDuplicates(oddsToAddToDb);
 
-            LOGGER.info("Finished pass.  Found " + oddsToAddToDb.size() + " new odds.  " +
-                    "Saving to db if any, then sleeping 30 minutes.  Process took: " +
-                    stopwatch.elapsedTime(TimeUnit.SECONDS) + " seconds.");
-
             oddRepository.save(oddsToAddToDb);
+
+            LOGGER.info("Finished pass #: " + checkNum + ".  Found " + oddsToAddToDb.size() + " new odds and saved " +
+                    "to db.  " + "Sleeping 30 minutes.  Process took: " +  stopwatch.elapsedTime(TimeUnit.SECONDS) +
+                    " seconds.");
+
+            checkNum++;
 
             Thread.sleep(THIRTY_MINUTES_IN_MILLIS);
         }
@@ -134,6 +140,21 @@ public class OddScraper {
 
     public Iterable<Odd> getAllForTeamFromDb(String team) {
         return oddRepository.findByTeamOneOrTeamTwo(team, team);
+    }
+
+
+    public void run() {
+        if(needToRunStartupMethod) {
+            LOGGER.info("Starting continual odds scraper");
+            needToRunStartupMethod = false;
+            try {
+                listenForLatestOdds();
+            } catch (Exception e) {
+                LOGGER.error("Listening for latest odds failed:" , e);
+            }
+        } else {
+            LOGGER.error("Attempted to start contintinual odds scraper but it's already running...");
+        }
     }
 
     private HashMap<String, List<Odd>> splitOddsIntoPerTeamLists(List<Odd> odds) {

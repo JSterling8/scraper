@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ import java.util.List;
  * Created by anon on 20/01/2016.
  */
 @Service
-public class ResultContinualResultScraperService extends ResultScraper {
+public class ResultContinualResultScraperService extends ResultScraper implements Runnable {
     @Autowired
     private ResultRepository resultRepository;
 
@@ -44,7 +43,7 @@ public class ResultContinualResultScraperService extends ResultScraper {
         long checkNum = 1;
 
         while (true) {
-            System.out.println("Performing check: " + checkNum);
+            System.out.println("Performing result check: " + checkNum);
 
             List<String> mostRecentMatchInDb = getLatestTeams();
 
@@ -125,18 +124,15 @@ public class ResultContinualResultScraperService extends ResultScraper {
         }
     }
 
-    @Scheduled(fixedRate = Long.MAX_VALUE)
-    public void keepAlive() throws InterruptedException, SQLException, ParseException, IOException {
-        if (needToRunStartupMethod) {
-            start();
-            needToRunStartupMethod = false;
-        }
-    }
-
-    public void start() throws SQLException, IOException, InterruptedException, ParseException {
+    public void run() {
         if(needToRunStartupMethod) {
-            logger.info("Starting continual scraper");
-            listenForLatestResults();
+            logger.info("Starting continual result scraper");
+            needToRunStartupMethod = false;
+            try {
+                listenForLatestResults();
+            } catch (Exception e) {
+                logger.error("Listening for latest results threw an exception:", e);
+            }
         } else {
             logger.error("Attempted to start contintinual scraper but it's already running...");
         }
