@@ -27,16 +27,16 @@ public class OddScraperController {
 
     @RequestMapping("/odd/get-all")
     public Iterable<Odd> getAll() throws ClassNotFoundException, SQLException, InterruptedException, ParseException, IOException {
-        return oddScraper.getAll();
+        return oddScraper.getAllFromDb();
     }
 
     @RequestMapping("/odd/get-all-for-date/{date}")
     public Iterable<Odd> getAllForDate(@PathVariable String date) throws ParseException {
-        return oddScraper.getAllForDate(date);
+        return oddScraper.getAllForDateFromDb(date);
     }
 
     @RequestMapping("/odd/get-all-for-team/{team}")
     public Iterable<Odd> getAllForTeam(@PathVariable String team) throws ParseException {
-        return oddScraper.getAllForTeam(team);
+        return oddScraper.getAllForTeamFromDb(team);
     }
 }

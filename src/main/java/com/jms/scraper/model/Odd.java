@@ -104,4 +104,27 @@ public class Odd {
     public String toString() {
         return teamOne + "  " + oddsTeamOne + "  vs  " + oddsTeamTwo + "  " + teamTwo + "  --  " + matchDate.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Odd)) {
+            return false;
+        }
+
+        if(obj == this) {
+            return true;
+        }
+
+        Odd odd = (Odd) obj;
+        if(odd.getTeamOne().equals(this.getTeamOne()) &&
+                odd.getTeamTwo().equals(this.getTeamTwo()) &&
+                odd.getWinningTeam().equals(this.getWinningTeam()) &&
+                odd.getOddsTeamOne().equals(this.getOddsTeamOne()) &&
+                odd.getOddsTeamTwo().equals(this.getOddsTeamTwo()) &&
+                odd.getMatchDate().equals(this.getMatchDate())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
