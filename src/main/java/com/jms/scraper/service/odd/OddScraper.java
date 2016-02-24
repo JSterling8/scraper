@@ -96,17 +96,21 @@ public class OddScraper {
 
             List<Odd> oddsToAddToDb = new ArrayList<Odd>();
 
-            for(Odd webOdd : allOddsOnWebsite) {
-                List<Odd> currentTeamsOddsInDb = oddsByTeamInDb.get(webOdd.getTeamOne());
-                List<Odd> currentViceVersaTeamOddsInDb = oddsByTeamInDb.get(webOdd.getTeamTwo());
+            if(allOddsInDb.size() != 0) {
+                for (Odd webOdd : allOddsOnWebsite) {
+                    List<Odd> currentTeamsOddsInDb = oddsByTeamInDb.get(webOdd.getTeamOne());
+                    List<Odd> currentViceVersaTeamOddsInDb = oddsByTeamInDb.get(webOdd.getTeamTwo());
 
-                if(!currentTeamsOddsInDb.contains(webOdd) && !currentViceVersaTeamOddsInDb.contains(getViceVersaOdd(webOdd))) {
-                    oddsToAddToDb.add(webOdd);
+                    if (!currentTeamsOddsInDb.contains(webOdd) && !currentViceVersaTeamOddsInDb.contains(getViceVersaOdd(webOdd))) {
+                        oddsToAddToDb.add(webOdd);
+                    }
                 }
+            } else {
+                oddsToAddToDb = allOddsOnWebsite;
             }
 
-            removeDuplicates(oddsToAddToDb);
             sortOdds(oddsToAddToDb);
+            removeDuplicates(oddsToAddToDb);
 
             LOGGER.info("Finished pass.  Found " + oddsToAddToDb.size() + " new odds.  " +
                     "Saving to db if any, then sleeping 30 minutes.  Process took: " +
