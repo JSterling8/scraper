@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class OddScraper implements Runnable {
     private static final long THIRTY_MINUTES_IN_MILLIS = 1000l * 60l * 30l;
-    private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60L * 5l;
+    private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
 
     @Autowired
     private DateHelper dateHelper;
@@ -355,7 +355,7 @@ public class OddScraper implements Runnable {
 
                 successfullyRetrieved = false;
 
-                Thread.sleep(5000l);
+                Thread.sleep(FIVE_MINUTES_IN_MILLIS);
             }
         }
         return document;
