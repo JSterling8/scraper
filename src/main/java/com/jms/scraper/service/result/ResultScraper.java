@@ -6,6 +6,8 @@ import com.jms.scraper.service.helper.MatchType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class ResultScraper {
     @Autowired
     private DateHelper dateHelper = new DateHelper();
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResultScraper.class);
 
     public List<Result> getLatestFiftyResults() throws IOException, ParseException, InterruptedException {
         return getResultsInRange(0, 50);
@@ -68,7 +72,7 @@ public class ResultScraper {
             if (teamOneNames.size() != teamTwoNames.size()
                     || teamTwoNames.size() != teamOneScores.size()
                     || teamOneScores.size() != teamTwoScores.size()) {
-                System.out.println("Elements size mismatch...");
+                LOGGER.info("Elements size mismatch...");
 
                 throw new RuntimeException("Unexpected response for team one names and scores.  The results page might've changed...");
             }

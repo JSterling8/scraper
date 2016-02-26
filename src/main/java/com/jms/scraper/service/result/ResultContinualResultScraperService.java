@@ -32,6 +32,7 @@ public class ResultContinualResultScraperService extends ResultScraper implement
     @Autowired
     private RatingService ratingService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResultContinualResultScraperService.class);
     private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
     private static final Logger logger = LoggerFactory.getLogger(ResultContinualResultScraperService.class);
     private static boolean needToRunStartupMethod = true;
@@ -43,7 +44,7 @@ public class ResultContinualResultScraperService extends ResultScraper implement
         long checkNum = 1;
 
         while (true) {
-            System.out.println("Performing result check: " + checkNum);
+            LOGGER.info("Performing result check: " + checkNum);
 
             List<String> mostRecentMatchInDb = getLatestTeams();
 
@@ -78,11 +79,11 @@ public class ResultContinualResultScraperService extends ResultScraper implement
 
             if (!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) ||
                     !latestTeamTwoNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(1))) {
-                System.out.println("Identified new match(es).  Adding to database...");
+                LOGGER.info("Identified new match(es).  Adding to database...");
                 addRecentlyAddedMatches(mostRecentMatchInDb);
             }
 
-            System.out.println("No new matches found.  Sleeping for five minutes before reattempting.");
+            LOGGER.info("No new matches found.  Sleeping for five minutes before reattempting.");
             Thread.sleep(FIVE_MINUTES_IN_MILLIS);
 
             checkNum++;
@@ -113,10 +114,10 @@ public class ResultContinualResultScraperService extends ResultScraper implement
             ratingService.handleRatingForLatestResult();
         }
 
-        System.out.println("The following results were added to the database: ");
+        LOGGER.info("The following results were added to the database: ");
 
         for(Result result : resultsToAddToDb) {
-            System.out.println(
+            LOGGER.info(
                     result.getTeamOne() + "  " + result.getScoreTeamOne() +
                     "  vs  " +
                     result.getScoreTeamTwo() + "  " + result.getTeamTwo() +

@@ -105,7 +105,8 @@ public class OddScraper implements Runnable {
                     List<Odd> currentTeamsOddsInDb = oddsByTeamInDb.get(webOdd.getTeamOne());
                     List<Odd> currentViceVersaTeamOddsInDb = oddsByTeamInDb.get(webOdd.getTeamTwo());
 
-                    if (!currentTeamsOddsInDb.contains(webOdd) && !currentViceVersaTeamOddsInDb.contains(getViceVersaOdd(webOdd))) {
+                    if ((currentTeamsOddsInDb == null || !currentTeamsOddsInDb.contains(webOdd)) &&
+                            (currentViceVersaTeamOddsInDb == null || !currentViceVersaTeamOddsInDb.contains(getViceVersaOdd(webOdd)))) {
                         oddsToAddToDb.add(webOdd);
                     }
                 }
