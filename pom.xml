@@ -5,17 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jms</groupId>
-    <artifactId>trueskill-rater</artifactId>
+    <artifactId>scraper</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <!-- Trueskill library -->
-        <dependency>
-            <groupId>jskills</groupId>
-            <artifactId>jskills</artifactId>
-            <version>0.12.0-SNAPSHOT</version>
-        </dependency>
-
         <!-- This project uses the Stopwatch class-->
         <dependency>
             <groupId>com.google.guava</groupId>
