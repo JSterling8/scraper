@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class OddScraper implements Runnable {
     private static final long THIRTY_MINUTES_IN_MILLIS = 1000l * 60l * 30l;
-    private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
 
     @Autowired
     private DateHelper dateHelper;
@@ -57,6 +56,7 @@ public class OddScraper implements Runnable {
         add("vexed");
         add("ldlcwhite");
         add("qm");
+        add("envyus");
     }};
 
     private boolean needToRunStartupMethod = true;
@@ -239,7 +239,7 @@ public class OddScraper implements Runnable {
 
         for (String team : teams) {
             Document document = null;
-            String url = "http://www.csgonuts.com/odds?t1=" + team;
+            String url = "https://www.csgonuts.com/odds?t1=" + team;
 
             document = loadUrl(document, url);
 
@@ -345,8 +345,10 @@ public class OddScraper implements Runnable {
         while (!successfullyRetrieved) {
             try {
                 document = Jsoup.connect(url)
-                        .timeout(7000)
-                        .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36")
+                        .timeout(0)
+                        .header("Accept-Language", "en")
+                        .header("Accept-Encoding","gzip,deflate,sdch")
                         .get();
 
                 successfullyRetrieved = true;
@@ -355,9 +357,10 @@ public class OddScraper implements Runnable {
 
                 successfullyRetrieved = false;
 
-                Thread.sleep(FIVE_MINUTES_IN_MILLIS);
+                Thread.sleep(THIRTY_MINUTES_IN_MILLIS);
             }
         }
+
         return document;
     }
 
@@ -366,7 +369,7 @@ public class OddScraper implements Runnable {
         List<Double> homeTeamOdds = new ArrayList<Double>();
 
         for (Element homeTeamOddElement : homeTeamOddsElements) {
-            String stringOdds = homeTeamOddElement.text();
+            String stringOdds = homeTeamOddElement.text().trim();
             // Get the '%' off the end
             stringOdds = stringOdds.substring(0, stringOdds.length() - 1);
 
@@ -385,14 +388,14 @@ public class OddScraper implements Runnable {
             Element currentElement = (Element) iterator.next();
 
             // If it's not a team name (but rather, a BO1, BO3, etc.), remove it and move onto the next element
-            if (currentElement.text().startsWith("BO")) {
+            if (currentElement.text().trim().startsWith("BO")) {
                 iterator.remove();
                 continue;
             }
 
             // Every other element should be an opponent
             if (i % 2 == 1) {
-                opponentNames.add(currentElement.text().toLowerCase());
+                opponentNames.add(currentElement.text().trim().toLowerCase());
             }
 
             i++;
