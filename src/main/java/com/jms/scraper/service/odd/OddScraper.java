@@ -26,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class OddScraper implements Runnable {
     private static final long THIRTY_MINUTES_IN_MILLIS = 1000l * 60l * 30l;
+    private static final long FIVE_MINUTES_IN_MILLIS = 1000l * 60l * 5l;
+    private static final long THIRTY_SECONDS_IN_MILLIS = 1000l * 30l;
 
     @Autowired
     private DateHelper dateHelper;
@@ -253,6 +255,9 @@ public class OddScraper implements Runnable {
             List<String> winners = getWinners(document, team, opponentNames);
 
             allOdds.addAll(getOddDaos(team, opponentNames, homeTeamOdds, matchDates, winners));
+
+            // Wait 30 seconds between each team
+            Thread.sleep(THIRTY_SECONDS_IN_MILLIS);
         }
 
         return allOdds;
@@ -349,6 +354,7 @@ public class OddScraper implements Runnable {
                         .timeout(0)
                         .header("Accept-Language", "en")
                         .header("Accept-Encoding","gzip,deflate,sdch")
+                        .maxBodySize(0)
                         .get();
 
                 successfullyRetrieved = true;
@@ -357,7 +363,7 @@ public class OddScraper implements Runnable {
 
                 successfullyRetrieved = false;
 
-                Thread.sleep(THIRTY_MINUTES_IN_MILLIS);
+                Thread.sleep(FIVE_MINUTES_IN_MILLIS);
             }
         }
 
