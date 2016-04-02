@@ -59,6 +59,7 @@ public class OddScraper implements Runnable {
         add("ldlcwhite");
         add("qm");
         add("envyus");
+        add("astralis");
     }};
 
     private boolean needToRunStartupMethod = true;

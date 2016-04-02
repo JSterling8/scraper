@@ -40,53 +40,57 @@ public class ResultContinualResultScraperService extends ResultScraper implement
     public ResultContinualResultScraperService() throws SQLException {
     }
 
-    public void listenForLatestResults() throws InterruptedException, SQLException, IOException, ParseException {
+    public void listenForLatestResults() throws InterruptedException {
         long checkNum = 1;
 
         while (true) {
-            LOGGER.info("Performing result check: " + checkNum);
+            try {
+                LOGGER.info("Performing result check: " + checkNum);
 
-            List<String> mostRecentMatchInDb = getLatestTeams();
+                List<String> mostRecentMatchInDb = getLatestTeams();
 
-            boolean successfullyRetrieved = false;
-            Document document = null;
+                boolean successfullyRetrieved = false;
+                Document document = null;
 
-            while (!successfullyRetrieved) {
+                while (!successfullyRetrieved) {
 
-                String url = "http://www.hltv.org/results/0/";
+                    String url = "http://www.hltv.org/results/0/";
 
-                try {
-                    document = Jsoup.connect(url)
-                            .timeout(7000)
-                            .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
-                            .get();
+                    try {
+                        document = Jsoup.connect(url)
+                                .timeout(7000)
+                                .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36")
+                                .get();
 
-                    successfullyRetrieved = true;
-                } catch (Exception e) {
-                    System.err.println("Failed to load " + url + " in continual scraper due to the following exception: " + e.getClass());
+                        successfullyRetrieved = true;
+                    } catch (Exception e) {
+                        System.err.println("Failed to load " + url + " in continual scraper due to the following exception: " + e.getClass());
 
-                    successfullyRetrieved = false;
+                        successfullyRetrieved = false;
 
-                    Thread.sleep(1000l * 60l);
+                        Thread.sleep(1000l * 60l);
+                    }
                 }
+
+                Elements teamOneNames = document.select(".matchTeam1Cell a");
+                Elements teamTwoNames = document.select(".matchTeam2Cell a");
+
+                String latestTeamOneNameOnPage = teamOneNames.get(0).text();
+                String latestTeamTwoNameOnPage = teamTwoNames.get(0).text();
+
+                if (!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) ||
+                        !latestTeamTwoNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(1))) {
+                    LOGGER.info("Identified new match(es).  Adding to database...");
+                    addRecentlyAddedMatches(mostRecentMatchInDb);
+                }
+
+                LOGGER.info("No new matches found.  Sleeping for five minutes before reattempting.");
+                Thread.sleep(FIVE_MINUTES_IN_MILLIS);
+
+                checkNum++;
+            } catch (Exception e) {
+                Thread.sleep(FIVE_MINUTES_IN_MILLIS);
             }
-
-            Elements teamOneNames = document.select(".matchTeam1Cell a");
-            Elements teamTwoNames = document.select(".matchTeam2Cell a");
-
-            String latestTeamOneNameOnPage = teamOneNames.get(0).text();
-            String latestTeamTwoNameOnPage = teamTwoNames.get(0).text();
-
-            if (!latestTeamOneNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(0)) ||
-                    !latestTeamTwoNameOnPage.equalsIgnoreCase(mostRecentMatchInDb.get(1))) {
-                LOGGER.info("Identified new match(es).  Adding to database...");
-                addRecentlyAddedMatches(mostRecentMatchInDb);
-            }
-
-            LOGGER.info("No new matches found.  Sleeping for five minutes before reattempting.");
-            Thread.sleep(FIVE_MINUTES_IN_MILLIS);
-
-            checkNum++;
         }
     }
 
