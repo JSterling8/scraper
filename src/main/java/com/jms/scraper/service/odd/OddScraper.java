@@ -47,7 +47,7 @@ public class OddScraper implements Runnable {
         add("nip");
         add("dignitas");
         add("mousesports");
-        add("gamers2");
+        add("g2");
         add("liquid");
         add("flipsid3");
         add("optic");

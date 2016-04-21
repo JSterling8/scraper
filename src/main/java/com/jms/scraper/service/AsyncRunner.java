@@ -30,7 +30,7 @@ public class AsyncRunner {
     @Scheduled(fixedRate = Long.MAX_VALUE)
     public void keepAlive() throws InterruptedException, SQLException, ParseException, IOException {
         taskExecutor.execute(continualResultScraperService);
-        //taskExecutor.execute(oddScraper); FIXME - Scrape from elsewhere?
+        taskExecutor.execute(oddScraper);
     }
 
 
